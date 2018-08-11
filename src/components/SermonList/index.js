@@ -43,7 +43,7 @@ class SermonList extends Component<Props> {
                     return (
                         <div>
                             {allSermons.map(sermon => (
-                                <Sermon sermon={sermon} />
+                                <Sermon key={sermon.id} sermon={sermon} />
                             ))}
                         </div>
                     );
