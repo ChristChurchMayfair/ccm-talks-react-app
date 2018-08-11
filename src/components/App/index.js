@@ -1,11 +1,9 @@
 // @flow
 
 import React, { Component } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
 
 import SermonList from "../SermonList";
-import SermonSeriesList from "../SermonSeriesList";
+import SeriesList from "../SeriesList";
 
 type Props = {||};
 
@@ -16,7 +14,7 @@ class App extends Component<Props> {
                 <h1>Featured</h1>
                 <SermonList />
                 <h1>Archive</h1>
-                <SermonSeriesList />
+                <SeriesList />
             </div>
         );
     }
