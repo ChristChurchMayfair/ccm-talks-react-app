@@ -2,20 +2,36 @@
 
 import React, { Component } from "react";
 
-import SermonList from "../SermonList";
+import FeaturedSermons from "../FeaturedSermons";
 import SeriesList from "../SeriesList";
+import WithSerieses from "../WithSerieses";
 
 type Props = {||};
 
 class App extends Component<Props> {
     render() {
         return (
-            <div className="sermons-app">
-                <h1>Featured</h1>
-                <SermonList />
-                <h1>Archive</h1>
-                <SeriesList />
-            </div>
+            <WithSerieses>
+                {({ loading, error, serieses }) => {
+                    if (loading == true || error != null) {
+                        return null;
+                    }
+                    return (
+                        <div>
+                            <h1>Featured</h1>
+                            <FeaturedSermons
+                                serieses={serieses}
+                                featuredSermonIds={[
+                                    "cjhoq9p0g3g7w01103xr223pe",
+                                    "cjhoq9ow735eu0186s5s6e2v3",
+                                ]}
+                            />
+                            <h1>Archive</h1>
+                            <SeriesList serieses={serieses} />
+                        </div>
+                    );
+                }}
+            </WithSerieses>
         );
     }
 }
