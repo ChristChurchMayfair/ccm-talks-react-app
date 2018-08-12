@@ -13,7 +13,7 @@ class App extends Component<Props> {
         return (
             <WithSerieses>
                 {({ loading, error, serieses }) => {
-                    if (loading == true || error != null) {
+                    if (loading === true || error != null) {
                         return null;
                     }
                     return (

@@ -1,10 +1,10 @@
 // @flow
 
 import React, { Component } from "react";
-import styled from "styled-components";
 
 import FeaturedSermon from "../FeaturedSermon";
 import { type Sermon, type Series } from "../../types";
+import Grid from "../Grid";
 
 const findSermonAndSeriesById = (
     serieses: Array<Series>,
@@ -19,18 +19,6 @@ const findSermonAndSeriesById = (
     return null;
 };
 
-const List = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-`;
-
-const ListItem = styled.div`
-    flex-basis: 15em;
-    flex-grow: 1;
-    flex-shrink: 1;
-`;
-
 type Props = {|
     serieses: Array<Series>,
     featuredSermonIds: Array<string>,
@@ -40,16 +28,15 @@ class SermonList extends Component<Props> {
     render() {
         const { serieses, featuredSermonIds } = this.props;
         return (
-            <List>
-                {featuredSermonIds
+            <Grid
+                items={featuredSermonIds
                     .map(id => findSermonAndSeriesById(serieses, id))
-                    .filter(Boolean)
-                    .map(({ sermon, series }) => (
-                        <ListItem key={sermon.id}>
-                            <FeaturedSermon sermon={sermon} series={series} />
-                        </ListItem>
-                    ))}
-            </List>
+                    .filter(Boolean)}
+                keyExtractor={({ sermon }) => sermon.id}
+                renderItem={({ sermon, series }) => (
+                    <FeaturedSermon sermon={sermon} series={series} />
+                )}
+            />
         );
     }
 }
