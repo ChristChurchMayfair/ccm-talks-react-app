@@ -6,6 +6,7 @@ import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import Modal from "react-modal";
 
 import TalksApp from "./components/App";
 
@@ -21,10 +22,13 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
 });
 
+const container = document.getElementById("root");
+Modal.setAppElement(container);
+
 ReactDOM.render(
     <ApolloProvider client={client}>
         <TalksApp />
     </ApolloProvider>,
     // $FlowFixMe
-    document.getElementById("root"),
+    container,
 );

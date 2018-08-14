@@ -5,17 +5,31 @@ import React, { Component } from "react";
 import FeaturedSermons from "../FeaturedSermons";
 import SeriesList from "../SeriesList";
 import WithSerieses from "../WithSerieses";
+import Modal from "../Modal";
+import SeriesDetail from "../SeriesDetail";
 
 type Props = {||};
 
-class App extends Component<Props> {
+type State = {|
+    selectedSeriesId: ?string,
+|};
+
+class App extends Component<Props, State> {
+    state = {
+        selectedSeriesId: null,
+    };
+
     render() {
+        const { selectedSeriesId } = this.state;
         return (
             <WithSerieses>
                 {({ loading, error, serieses }) => {
                     if (loading === true || error != null) {
                         return null;
                     }
+                    const selectedSeries = serieses.find(
+                        s => s.id === selectedSeriesId,
+                    );
                     return (
                         <div>
                             <h1>Featured</h1>
@@ -27,7 +41,32 @@ class App extends Component<Props> {
                                 ]}
                             />
                             <h1>Archive</h1>
-                            <SeriesList serieses={serieses} />
+                            <SeriesList
+                                serieses={serieses}
+                                onSelectSeries={seriesId => {
+                                    this.setState({
+                                        selectedSeriesId: seriesId,
+                                    });
+                                }}
+                            />
+                            {
+                                <Modal
+                                    isOpen={selectedSeries != null}
+                                    onClose={() => {
+                                        this.setState({
+                                            selectedSeriesId: null,
+                                        });
+                                    }}
+                                >
+                                    {selectedSeries != null && (
+                                        <div>
+                                            <SeriesDetail
+                                                series={selectedSeries}
+                                            />
+                                        </div>
+                                    )}
+                                </Modal>
+                            }
                         </div>
                     );
                 }}
