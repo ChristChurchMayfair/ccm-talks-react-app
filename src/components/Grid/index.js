@@ -3,6 +3,8 @@
 import React, { type Node } from "react";
 import styled from "styled-components";
 
+import { MEDIA_QUERIES } from "../../constants/styles";
+
 const ITEM_PADDING = "2em";
 
 // needed since we're using negative margin on the List component, otherwise
@@ -22,7 +24,13 @@ const List = styled.div`
 const ListItem = styled.div`
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: 15em;
+    flex-basis: 100%;
+    @media ${MEDIA_QUERIES.tablet} {
+        flex-basis: 50%;
+    }
+    @media ${MEDIA_QUERIES.desktop} {
+        flex-basis: 33%;
+    }
 `;
 
 const ItemPadding = styled.div`
