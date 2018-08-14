@@ -59,6 +59,7 @@ type Props = {|
 const Modal = ({ children, isOpen, onClose }: Props) => (
     <ReactModal
         isOpen={isOpen}
+        onRequestClose={onClose}
         style={{
             overlay: {
                 // zIndex: 100001,

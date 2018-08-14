@@ -4,17 +4,18 @@ import React from "react";
 import styled from "styled-components";
 
 import { type Series } from "../../types";
+import SermonRow from "./SermonRow";
 
 const Main = styled.div``;
 
-const SermonList = styled.ul`
+const List = styled.ul`
     list-style-type: none;
     margin: 0;
     padding: 0;
 `;
 
-const SermonRow = styled.li`
-    padding-bottom: 10em;
+const ListItem = styled.li`
+    padding-bottom: 1em;
 `;
 
 type Props = {|
@@ -24,19 +25,19 @@ type Props = {|
 const SeriesDetail = ({ series }: Props) => (
     <Main>
         <h1>{series.name}</h1>
-        <SermonList>
+        <List>
             {series.sermons.map(sermon => (
-                <SermonRow key={sermon.id}>
+                <ListItem key={sermon.id}>
                     <a
                         href={sermon.url}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        {sermon.name}
+                        <SermonRow sermon={sermon} />
                     </a>
-                </SermonRow>
+                </ListItem>
             ))}
-        </SermonList>
+        </List>
     </Main>
 );
 
