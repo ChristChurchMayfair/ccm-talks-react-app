@@ -12,10 +12,7 @@ const Image = styled.img`
     object-fit: cover;
 `;
 
-const Link = styled.a`
-    color: currentColor;
-    text-decoration: none;
-`;
+const Main = styled.div``;
 
 type Props = {|
     sermon: Sermon,
@@ -26,12 +23,12 @@ class FeaturedSermon extends PureComponent<Props> {
     render() {
         const { sermon, series } = this.props;
         return (
-            <Link href={sermon.url} target="_blank" rel="noopener noreferrer">
+            <Main>
                 <Aspect3x2>
                     <Image src={series.image3x2Url} />
                 </Aspect3x2>
                 <div>{sermon.name}</div>
-            </Link>
+            </Main>
         );
     }
 }
