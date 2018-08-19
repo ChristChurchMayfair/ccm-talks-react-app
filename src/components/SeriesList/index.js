@@ -13,6 +13,10 @@ type Props = {|
     onSelectSeries: (seriesId: string) => void,
 |};
 
+const ThumbnailPadding = styled.div`
+    padding: 0.8em;
+`;
+
 class SeriesList extends Component<Props> {
     render() {
         const { serieses, onSelectSeries } = this.props;
@@ -27,7 +31,9 @@ class SeriesList extends Component<Props> {
                             onSelectSeries(series.id);
                         }}
                     >
-                        <SeriesThumbnail series={series} />
+                        <ThumbnailPadding>
+                            <SeriesThumbnail series={series} />
+                        </ThumbnailPadding>
                     </Button>
                 )}
             />

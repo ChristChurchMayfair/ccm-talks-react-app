@@ -5,13 +5,9 @@ import styled from "styled-components";
 
 import { MEDIA_QUERIES } from "../../constants/styles";
 
-const ITEM_PADDING = "2em";
+const ITEM_PADDING = "0.4em";
 
-// needed since we're using negative margin on the List component, otherwise
-// the page gets too big.
-const Main = styled.div`
-    overflow-x: hidden;
-`;
+const Main = styled.div``;
 
 const List = styled.div`
     display: flex;
@@ -35,6 +31,7 @@ const ListItem = styled.div`
 
 const ItemPadding = styled.div`
     padding: ${ITEM_PADDING};
+    padding-bottom: 1.5em;
 `;
 
 type Props<T> = {|
