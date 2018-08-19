@@ -28,8 +28,8 @@ const Header = styled.div`
 `;
 
 const Close = styled.div`
-    width: 2em;
-    height: 2em;
+    width: 1.5em;
+    height: 1.5em;
 `;
 
 const ClosePadding = styled.div`

@@ -9,6 +9,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import Modal from "react-modal";
 
 import TalksApp from "./components/App";
+// import "./styles.css";
 
 var serviceID = "cjhoh936q44gz0181840a6nlj";
 var graphCoolURL = `https://api.graph.cool/simple/v1/${serviceID}`;

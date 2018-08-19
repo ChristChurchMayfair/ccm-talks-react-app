@@ -23,7 +23,7 @@ const findSermonAndSeriesById = (
 
 const Link = styled.a`
     color: currentColor;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: background-color 0.2s ease-out;
     display: block;
     padding: 1.5em;

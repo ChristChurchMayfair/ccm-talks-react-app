@@ -35,7 +35,7 @@ type Props = {|
 const SeriesDetail = ({ series }: Props) => (
     <Main>
         <SeriesImage src={series.image3x2Url} />
-        <h1>{series.name}</h1>
+        <h2>{series.name}</h2>
         <List>
             {series.sermons.map(sermon => (
                 <ListItem key={sermon.id}>

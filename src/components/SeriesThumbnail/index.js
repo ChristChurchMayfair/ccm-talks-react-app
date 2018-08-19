@@ -16,6 +16,11 @@ const Text = styled.div`
     margin: 0.2em 0;
 `;
 
+const Title = styled(Text)`
+    margin-top: 0.6em;
+    font-weight: bold;
+`;
+
 type Props = {|
     series: Series,
 |};
@@ -28,7 +33,7 @@ class SeriesThumbnail extends PureComponent<Props> {
                 <Aspect3x2>
                     <Image src={series.image3x2Url} />
                 </Aspect3x2>
-                <Text>{series.name}</Text>
+                <Title>{series.name}</Title>
                 {series.subtitle != null && <Text>{series.subtitle}</Text>}
             </div>
         );

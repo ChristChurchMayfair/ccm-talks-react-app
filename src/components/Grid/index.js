@@ -5,16 +5,15 @@ import styled from "styled-components";
 
 import { MEDIA_QUERIES } from "../../constants/styles";
 
-const ITEM_PADDING = "0.4em";
-
-const Main = styled.div``;
+const Main = styled.div`
+    font-size: 1rem;
+    line-height: normal;
+`;
 
 const List = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    margin: -${ITEM_PADDING};
-    overflow: hidden;
 `;
 
 const ListItem = styled.div`
@@ -30,7 +29,6 @@ const ListItem = styled.div`
 `;
 
 const ItemPadding = styled.div`
-    padding: ${ITEM_PADDING};
     padding-bottom: 1.5em;
 `;
 
