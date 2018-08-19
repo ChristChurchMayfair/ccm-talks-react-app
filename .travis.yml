@@ -1,17 +1,18 @@
 language: node_js
 node_js:
-  - "stable"
+- stable
 cache:
   directories:
-    - node_modules
+  - node_modules
 script:
-  - npm test
-  - npm run build
+- npm test
+- npm run build
 deploy:
   provider: releases
-  file: "FILE TO UPLOAD"
-  skip_cleanup: true
+  api_key:
+    secure: BgdYicLrvLbxr+EuaIHpEe2Hmk2K3rdR3gR16Sdsrp/81WmMSmpc7QQ2iVXsWPD958LNIxhbh9WIRf3b++quZv8gz8F9KjFiBtmGyAx0C3YzNvS/bGrcZrAEB2TmLhcFDmZ9KadzEv1izRIFvBhXLt7eJOOwyG7m8acXanBlboTCyoIe2udgqwna6eFpsQ3E7cy52B4DO97VQPnGBAO0CY88pKww7PHDI1iYQeIYkoGBy+zccQTxWpnYTe2Mwg1UKWscl8snBbhMnepqvlLySxOHlyEYTbBxf/NPUzdRHOtG+XMbot57Lk/2A3/0zXTFMc0Gy6bug1m3CwKW1VwEh4qyvpVSgm9wPr0wP0bFT9BczArCl7rkra4NTugSnd+vp9gQvaAlzgbMt6iGawyir/Lj2YmDbfwRQxyCFfCOnnUw2jQRUnEhrYb8CBxekZso4W9VKvxBrB5z4dPjX4SGPgx1hkPG71ddGbvY/E/tF40EgHbiWBa4/Amo0IFXTNP+bBbnQoCF2aTAKU9zz0n1Ir6JjL+IJ/UBIXVfMtCV65+xtZqu5765H3clawB+GE/kfVIDp0fE3KYT/wMZyEMFdnukhCnHHGI6B0b+yBypqj2Yn31r+Trn7aiqent6dNVGUqmhmSewsOd4EwHpErUPs8jhQWNAVcZhQfwTEaBGkD8=
+  file: build
   on:
-    tags: true
-on:
+    repo: ChristChurchMayfair/ccm-talks-react-app
+true:
   branch: master
