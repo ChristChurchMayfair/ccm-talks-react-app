@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
+  - npm run build
+deploy:
+  provider: releases
+  file: "FILE TO UPLOAD"
+  skip_cleanup: true
+  on:
+    tags: true
+on:
+  branch: master
