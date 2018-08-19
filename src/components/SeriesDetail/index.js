@@ -6,7 +6,17 @@ import styled from "styled-components";
 import { type Series } from "../../types";
 import SermonRow from "./SermonRow";
 
-const Main = styled.div``;
+const Main = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+`;
+
+const SeriesImage = styled.img`
+    width: 100%;
+    height: auto;
+    max-width: 30em;
+    align-self: center;
+`;
 
 const List = styled.ul`
     list-style-type: none;
@@ -24,6 +34,7 @@ type Props = {|
 
 const SeriesDetail = ({ series }: Props) => (
     <Main>
+        <SeriesImage src={series.image3x2Url} />
         <h1>{series.name}</h1>
         <List>
             {series.sermons.map(sermon => (

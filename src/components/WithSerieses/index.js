@@ -3,6 +3,7 @@
 import React, { Component, type Node } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import parse from "date-fns/parse";
 
 import { type Series } from "../../types";
 
@@ -33,6 +34,21 @@ const SERIES_QUERY = gql`
     }
 `;
 
+const sortSerieses = (serieses: Array<Series>): Array<Series> => {
+    const mostRecentSermonDates = serieses.map(series => {
+        const sermonDates = series.sermons.map(sermon =>
+            parse(sermon.preachedAt).getTime(),
+        );
+        const mostRecentSermonDate = Math.max(...sermonDates);
+        return [series.id, mostRecentSermonDate];
+    });
+    mostRecentSermonDates.sort((a, b) => b[1] - a[1]);
+    return mostRecentSermonDates.map(([seriesId]) =>
+        // $FlowFixMe
+        serieses.find(s => s.id === seriesId),
+    );
+};
+
 type Props = {|
     children: ({
         serieses: Array<Series>,
@@ -50,7 +66,7 @@ class WithSerieses extends Component<Props> {
                     const serieses: Array<Series> =
                         data.allSeries != null ? data.allSeries : [];
                     return children({
-                        serieses,
+                        serieses: sortSerieses(serieses),
                         loading,
                         error: error != null ? error.message : null,
                     });
