@@ -59,7 +59,15 @@ type Props = {|
 const Modal = ({ children, isOpen, onClose }: Props) => (
     <ReactModal
         isOpen={isOpen}
-        onRequestClose={onClose}
+        onRequestClose={() => {
+            // $FlowFixMe
+            document.body.style.overflow = null;
+            onClose();
+        }}
+        onAfterOpen={() => {
+            // $FlowFixMe
+            document.body.style.overflow = "hidden";
+        }}
         style={{
             overlay: {
                 // zIndex: 100001,
