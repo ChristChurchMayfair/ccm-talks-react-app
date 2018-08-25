@@ -11,26 +11,18 @@ const Main = styled.div`
 `;
 
 const List = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-`;
-
-const ListItem = styled.div`
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-row-gap: 1.5em;
     @media ${MEDIA_QUERIES.tablet} {
-        flex-basis: 50%;
+        grid-template-columns: repeat(2, 1fr);
     }
     @media ${MEDIA_QUERIES.desktop} {
-        flex-basis: 33%;
+        grid-template-columns: repeat(3, 1fr);
     }
 `;
 
-const ItemPadding = styled.div`
-    padding-bottom: 1.5em;
-`;
+const Item = styled.div``;
 
 type Props<T> = {|
     items: Array<T>,
@@ -42,9 +34,7 @@ const Grid = <T>({ items, keyExtractor, renderItem }: Props<T>) => (
     <Main>
         <List>
             {items.map(item => (
-                <ListItem key={keyExtractor(item)}>
-                    <ItemPadding>{renderItem(item)}</ItemPadding>
-                </ListItem>
+                <Item key={keyExtractor(item)}>{renderItem(item)}</Item>
             ))}
         </List>
     </Main>
