@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { type Series } from "../../types";
 import SermonRow from "./SermonRow";
 import { MEDIA_QUERIES, COLOURS } from "../../constants/styles";
+import parse from "date-fns/parse";
 
 const PADDING_VERTICAL = "0.5em";
 
@@ -73,34 +74,40 @@ type Props = {|
     series: Series,
 |};
 
-const SeriesDetail = ({ series }: Props) => (
-    <Main>
-        <ImagePadding>
-            <SeriesImage src={series.image3x2Url} />
-        </ImagePadding>
-        <HPadding>
-            <SeriesTitleContainer>
-                <SeriesTitle>{series.name}</SeriesTitle>
-                {series.subtitle != null && (
-                    <SeriesSubtitle>{series.subtitle}</SeriesSubtitle>
-                )}
-            </SeriesTitleContainer>
-        </HPadding>
-        <List>
-            {series.sermons.map(sermon => (
-                <Link
-                    key={sermon.id}
-                    href={sermon.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <HPadding>
-                        <SermonRow sermon={sermon} />
-                    </HPadding>
-                </Link>
-            ))}
-        </List>
-    </Main>
-);
+const SeriesDetail = ({ series }: Props) => {
+    const sortedSermons = [...series.sermons];
+    sortedSermons.sort((a, b) => {
+        return parse(b.preachedAt).getTime() - parse(a.preachedAt).getTime();
+    });
+    return (
+        <Main>
+            <ImagePadding>
+                <SeriesImage src={series.image3x2Url} />
+            </ImagePadding>
+            <HPadding>
+                <SeriesTitleContainer>
+                    <SeriesTitle>{series.name}</SeriesTitle>
+                    {series.subtitle != null && (
+                        <SeriesSubtitle>{series.subtitle}</SeriesSubtitle>
+                    )}
+                </SeriesTitleContainer>
+            </HPadding>
+            <List>
+                {sortedSermons.map(sermon => (
+                    <Link
+                        key={sermon.id}
+                        href={sermon.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <HPadding>
+                            <SermonRow sermon={sermon} />
+                        </HPadding>
+                    </Link>
+                ))}
+            </List>
+        </Main>
+    );
+};
 
 export default SeriesDetail;

@@ -7,6 +7,7 @@ import format from "date-fns/format";
 
 import Aspect3x2 from "../Aspect3x2";
 import { type Sermon, type Series } from "../../types";
+import { formatOsis } from "../../passageformatter";
 
 const Image = styled.img`
     width: 100%;
@@ -29,6 +30,17 @@ const Secondary = styled(Text)`
     opacity: 0.8;
 `;
 
+const formatPassage = (passage: ?string): ?string => {
+    if (passage == null) {
+        return null;
+    }
+    try {
+        return formatOsis(passage);
+    } catch (err) {
+        return null;
+    }
+};
+
 type Props = {|
     sermon: Sermon,
     series: Series,
@@ -38,15 +50,14 @@ class FeaturedSermon extends PureComponent<Props> {
     render() {
         const { sermon, series } = this.props;
         const date = parse(sermon.preachedAt);
+        const passage = formatPassage(sermon.passage);
         return (
             <Main>
                 <Aspect3x2>
                     <Image src={series.image3x2Url} />
                 </Aspect3x2>
                 <SermonName>{sermon.name}</SermonName>
-                {sermon.passage != null && (
-                    <Secondary>{sermon.passage}</Secondary>
-                )}
+                {passage != null && <Secondary>{passage}</Secondary>}
                 <Secondary>{format(date, "dddd D MMM YYYY")}</Secondary>
             </Main>
         );
