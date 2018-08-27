@@ -7,8 +7,6 @@ import styled from "styled-components";
 import close from "../../images/close.svg";
 import Button from "../Button";
 
-const CONTENT_PADDING = "1.5em";
-
 const Main = styled.div`
     flex-grow: 1;
     flex-shrink: 1;
@@ -33,15 +31,12 @@ const Close = styled.div`
 `;
 
 const ClosePadding = styled.div`
-    padding: ${CONTENT_PADDING};
+    padding: 1em;
 `;
 
 const Children = styled.div`
     flex-grow: 1;
     flex-shrink: 1;
-    padding-bottom: ${CONTENT_PADDING};
-    padding-right: ${CONTENT_PADDING};
-    padding-left: ${CONTENT_PADDING};
     overflow-y: auto;
 `;
 
@@ -63,7 +58,7 @@ class Modal extends Component<Props> {
         this.props.onClose();
     };
     render() {
-        const { children, isOpen, onClose } = this.props;
+        const { children, isOpen } = this.props;
         return (
             <ReactModal
                 isOpen={isOpen}
@@ -94,7 +89,7 @@ class Modal extends Component<Props> {
                         padding: null,
                         borderRadius: "1em",
                         boxShadow: "0px 0px 1.1em 2px rgba(0, 0, 0, 0.2)",
-                        maxWidth: "95%",
+                        maxWidth: "100%",
                         maxHeight: "95%",
                         minWidth: "60%",
                         display: "flex",

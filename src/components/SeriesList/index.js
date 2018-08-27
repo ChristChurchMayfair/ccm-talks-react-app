@@ -1,25 +1,17 @@
 // @flow
 
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { PureComponent } from "react";
 
-import SeriesThumbnail from "../SeriesThumbnail";
 import { type Series } from "../../types";
 import Grid from "../Grid";
-import Button from "../Button";
+import SeriesListItem from "./SeriesListItem";
 
 type Props = {|
     serieses: Array<Series>,
     onSelectSeries: (seriesId: string) => void,
 |};
 
-const Thumbnail = styled.div`
-    font-size: 1rem;
-    padding: 0.8em;
-    line-height: normal;
-`;
-
-class SeriesList extends Component<Props> {
+class SeriesList extends PureComponent<Props> {
     render() {
         const { serieses, onSelectSeries } = this.props;
         return (
@@ -27,16 +19,7 @@ class SeriesList extends Component<Props> {
                 items={serieses}
                 keyExtractor={series => series.id}
                 renderItem={series => (
-                    <Button
-                        style={{ width: "100%" }}
-                        onClick={() => {
-                            onSelectSeries(series.id);
-                        }}
-                    >
-                        <Thumbnail>
-                            <SeriesThumbnail series={series} />
-                        </Thumbnail>
-                    </Button>
+                    <SeriesListItem onClick={onSelectSeries} series={series} />
                 )}
             />
         );

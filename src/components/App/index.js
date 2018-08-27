@@ -19,6 +19,12 @@ class App extends Component<Props, State> {
         selectedSeriesId: null,
     };
 
+    selectSeries = (seriesId: string) => {
+        this.setState({
+            selectedSeriesId: seriesId,
+        });
+    };
+
     render() {
         const { selectedSeriesId } = this.state;
         return (
@@ -43,11 +49,7 @@ class App extends Component<Props, State> {
                             <h1>Archive</h1>
                             <SeriesList
                                 serieses={serieses}
-                                onSelectSeries={seriesId => {
-                                    this.setState({
-                                        selectedSeriesId: seriesId,
-                                    });
-                                }}
+                                onSelectSeries={this.selectSeries}
                             />
                             {
                                 <Modal
