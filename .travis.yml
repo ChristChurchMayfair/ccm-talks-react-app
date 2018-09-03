@@ -17,5 +17,8 @@ deploy:
   file: ./ccm-talk-reactjs.tar.gz
   on:
     repo: ChristChurchMayfair/ccm-talks-react-app
+    branches:
+      only: 
+        - master
   skip_cleanup: true
   branch: master
