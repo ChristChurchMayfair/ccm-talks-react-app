@@ -22,10 +22,14 @@ const SeriesImage = styled.img`
     align-self: center;
 `;
 
-const List = styled.ul`
-    list-style-type: none;
-    margin: 0;
+const Table = styled.table`
+    border-collapse: collapse;
+    border-style: hidden;
+`;
+
+const Cell = styled.td`
     padding: 0;
+    border: 1px solid ${COLOURS.lightGrey};
 `;
 
 const HPadding = styled.div`
@@ -91,20 +95,25 @@ const SeriesDetail = ({ series }: Props) => {
                     )}
                 </SeriesTitleContainer>
             </HPadding>
-            <List>
-                {sortedSermons.map(sermon => (
-                    <Link
-                        key={sermon.id}
-                        href={sermon.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <HPadding>
-                            <SermonRow sermon={sermon} />
-                        </HPadding>
-                    </Link>
-                ))}
-            </List>
+            <Table>
+                <tbody>
+                    {sortedSermons.map((sermon, i) => (
+                        <tr key={sermon.id}>
+                            <Cell>
+                                <Link
+                                    href={sermon.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <HPadding>
+                                        <SermonRow sermon={sermon} />
+                                    </HPadding>
+                                </Link>
+                            </Cell>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
         </Main>
     );
 };
