@@ -3,8 +3,8 @@
 import React, { PureComponent } from "react";
 import styled from "styled-components";
 
-import Aspect3x2 from "../Aspect3x2";
 import { type Series } from "../../types";
+import placeholderImage from "../../images/placeholderImage";
 
 const Image = styled.img`
     width: 100%;
@@ -30,9 +30,7 @@ class SeriesThumbnail extends PureComponent<Props> {
         const { series } = this.props;
         return (
             <div>
-                <Aspect3x2>
-                    <Image src={series.image3x2Url} />
-                </Aspect3x2>
+                <Image src={series.image3x2Url || placeholderImage} />
                 <Title>{series.name}</Title>
                 {series.subtitle != null && <Text>{series.subtitle}</Text>}
             </div>

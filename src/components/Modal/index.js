@@ -4,7 +4,7 @@ import React, { Component, type Node } from "react";
 import ReactModal from "react-modal";
 import styled from "styled-components";
 
-import close from "../../images/close.svg";
+import CloseSvg from "../../images/close";
 import Button from "../Button";
 
 const Main = styled.div`
@@ -104,7 +104,7 @@ class Modal extends Component<Props> {
                         <Button onClick={this.close}>
                             <ClosePadding>
                                 <Close>
-                                    <CloseImage src={close} />
+                                    <CloseSvg />
                                 </Close>
                             </ClosePadding>
                         </Button>

@@ -5,9 +5,9 @@ import styled from "styled-components";
 import parse from "date-fns/parse";
 import format from "date-fns/format";
 
-import Aspect3x2 from "../Aspect3x2";
 import { type Sermon, type Series } from "../../types";
 import { formatOsis } from "../../passageformatter";
+import placeholderImage from "../../images/placeholderImage";
 
 const Image = styled.img`
     width: 100%;
@@ -53,9 +53,7 @@ class FeaturedSermon extends PureComponent<Props> {
         const passage = formatPassage(sermon.passage);
         return (
             <Main>
-                <Aspect3x2>
-                    <Image src={series.image3x2Url} />
-                </Aspect3x2>
+                <Image src={series.image3x2Url || placeholderImage} />
                 <SermonName>{sermon.name}</SermonName>
                 {passage != null && <Secondary>{passage}</Secondary>}
                 <Secondary>{format(date, "dddd D MMM YYYY")}</Secondary>
