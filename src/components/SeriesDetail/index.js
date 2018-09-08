@@ -28,6 +28,14 @@ const List = styled.ul`
     padding: 0;
 `;
 
+const ListItem = styled.li`
+    border-bottom: 1px solid ${COLOURS.lightGrey};
+
+    &:last-child {
+        border-bottom: none;
+    }
+`;
+
 const HPadding = styled.div`
     padding: 0 1.3em;
 
@@ -93,16 +101,17 @@ const SeriesDetail = ({ series }: Props) => {
             </HPadding>
             <List>
                 {sortedSermons.map(sermon => (
-                    <Link
-                        key={sermon.id}
-                        href={sermon.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <HPadding>
-                            <SermonRow sermon={sermon} />
-                        </HPadding>
-                    </Link>
+                    <ListItem key={sermon.id}>
+                        <Link
+                            href={sermon.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <HPadding>
+                                <SermonRow sermon={sermon} />
+                            </HPadding>
+                        </Link>
+                    </ListItem>
                 ))}
             </List>
         </Main>
