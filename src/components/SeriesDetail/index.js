@@ -20,7 +20,6 @@ const SeriesImage = styled.img`
     height: auto;
     max-width: 30em;
     align-self: center;
-    border-radius: 0.2em;
 `;
 
 const List = styled.ul`
