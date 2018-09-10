@@ -11,5 +11,6 @@ const Button = styled.button`
     color: currentColor;
     cursor: pointer;
     padding: 0;
+    margin: 0;
 `;
 export default Button;

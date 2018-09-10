@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import FeaturedSermon from "../FeaturedSermon";
+import Shadow from "../Shadow";
 import { type Sermon, type Series } from "../../types";
 import Grid from "../Grid";
 import { MEDIA_QUERIES } from "../../constants/styles";
@@ -55,7 +56,9 @@ class SermonList extends Component<Props> {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <FeaturedSermon sermon={sermon} series={series} />
+                        <Shadow>
+                            <FeaturedSermon sermon={sermon} series={series} />
+                        </Shadow>
                     </Link>
                 )}
             />

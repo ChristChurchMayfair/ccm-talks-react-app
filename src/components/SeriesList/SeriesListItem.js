@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { type Series } from "../../types";
 import SeriesThumbnail from "../SeriesThumbnail";
 import OpacityButton from "../OpacityButton";
+import Shadow from "../Shadow";
 
 const Button = styled(OpacityButton)`
     font-size: 1rem;
@@ -22,13 +23,15 @@ export default class SeriesListItem extends PureComponent<Props> {
     render() {
         const { series, onClick } = this.props;
         return (
-            <Button
-                onClick={() => {
-                    onClick(series.id);
-                }}
-            >
-                <SeriesThumbnail series={series} />
-            </Button>
+            <Shadow>
+                <Button
+                    onClick={() => {
+                        onClick(series.id);
+                    }}
+                >
+                    <SeriesThumbnail series={series} />
+                </Button>
+            </Shadow>
         );
     }
 }

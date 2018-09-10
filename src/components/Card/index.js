@@ -6,7 +6,6 @@ import styled from "styled-components";
 type Props = {| imageUrl: string, renderDetails: () => Node |};
 
 const Main = styled.div`
-    box-shadow: 0px 0px 0.2em 2px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-flow: column nowrap;
 `;
