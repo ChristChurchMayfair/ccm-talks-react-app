@@ -23,6 +23,11 @@ const SpinnerContainer = styled.div`
     justify-content: center;
 `;
 
+// The spinner comes with a 45deg offset that we want to undo.
+const Unrotate = styled.div`
+    transform: rotateZ(-45deg);
+`;
+
 class App extends Component<Props, State> {
     state = {
         selectedSeriesId: null,
@@ -42,7 +47,9 @@ class App extends Component<Props, State> {
                     if (loading === true || error != null) {
                         return (
                             <SpinnerContainer>
-                                <Spinner name="folding-cube" />
+                                <Unrotate>
+                                    <Spinner name="folding-cube" />
+                                </Unrotate>
                             </SpinnerContainer>
                         );
                     }
