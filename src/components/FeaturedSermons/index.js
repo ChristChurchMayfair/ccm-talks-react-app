@@ -6,7 +6,7 @@ import styled from "styled-components";
 import FeaturedSermon from "../FeaturedSermon";
 import { type Sermon, type Series } from "../../types";
 import Grid from "../Grid";
-import { MEDIA_QUERIES } from "../../constants/styles";
+import { SHADOW, MEDIA_QUERIES } from "../../constants/styles";
 
 const findSermonAndSeriesById = (
     serieses: Array<Series>,
@@ -25,13 +25,15 @@ const Link = styled.a`
     color: currentColor;
     text-decoration: none !important;
     display: block;
-    transition: opacity 0.2s ease-out;
     width: 100%;
-    box-shadow: 0px 0px 0.2em 2px rgba(0, 0, 0, 0.2);
+
+    transition: opacity 0.2s ease-out;
+    transition: box-shadow 0.2s ease-out;
 
     @media ${MEDIA_QUERIES.canHover} {
         &:hover {
-            opacity: 0.3;
+            opacity: 90%;
+            box-shadow: ${SHADOW};
         }
     }
 `;

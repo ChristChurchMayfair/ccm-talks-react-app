@@ -5,13 +5,22 @@ import styled from "styled-components";
 
 import { type Series } from "../../types";
 import SeriesThumbnail from "../SeriesThumbnail";
-import OpacityButton from "../OpacityButton";
+import BaseButton from "../BaseButton";
+import { SHADOW, MEDIA_QUERIES } from "../../constants/styles";
 
-const Button = styled(OpacityButton)`
+const Button = styled(BaseButton)`
     font-size: 1rem;
     line-height: normal;
     width: 100%;
-    box-shadow: 0px 0px 0.2em 2px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.2s ease-out;
+    transition: box-shadow 0.2s ease-out;
+
+    @media ${MEDIA_QUERIES.canHover} {
+        &:hover {
+            opacity: 90%;
+            box-shadow: ${SHADOW};
+        }
+    }
 `;
 
 type Props = {|
