@@ -26,12 +26,14 @@ const Header = styled.div`
 `;
 
 const Close = styled.div`
-    width: 1.5em;
-    height: 1.5em;
+    width: 1em;
+    height: 1em;
+    display: flex;
+    flex-flow: ;
 `;
 
 const ClosePadding = styled.div`
-    padding: 1em;
+    padding: 0.5em;
 `;
 
 const Children = styled.div`
@@ -82,11 +84,11 @@ class Modal extends Component<Props> {
                         bottom: undefined,
                         border: null,
                         padding: null,
-                        margin: "10% 0",
+                        margin: "3% 0",
                         borderRadius: 0,
                         boxShadow: "0px 0px 1.1em 2px rgba(0, 0, 0, 0.2)",
                         maxWidth: "100%",
-                        minWidth: "60%",
+                        minWidth: "50%",
                         overflow: undefined,
                     },
                 }}
