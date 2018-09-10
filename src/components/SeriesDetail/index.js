@@ -2,11 +2,12 @@
 
 import React from "react";
 import styled from "styled-components";
+import parse from "date-fns/parse";
 
 import { type Series } from "../../types";
 import SermonRow from "./SermonRow";
 import { MEDIA_QUERIES, COLOURS } from "../../constants/styles";
-import parse from "date-fns/parse";
+import placeholderImage from "../../images/placeholderImage";
 
 const PADDING_VERTICAL = "0.5em";
 
@@ -89,7 +90,7 @@ const SeriesDetail = ({ series }: Props) => {
     return (
         <Main>
             <ImagePadding>
-                <SeriesImage src={series.image3x2Url} />
+                <SeriesImage src={series.image3x2Url || placeholderImage} />
             </ImagePadding>
             <HPadding>
                 <SeriesTitleContainer>

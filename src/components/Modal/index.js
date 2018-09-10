@@ -66,31 +66,28 @@ class Modal extends Component<Props> {
                 }}
                 style={{
                     overlay: {
-                        // zIndex: 100001,
-                        display: "flex",
-                        flexFlow: "row nowrap",
-                        justifyContent: "center",
-                        alignItems: "center",
                         backgroundColor: "rgba(230, 230, 230, 0.75)",
+                        padding: "0",
+                        display: "flex",
+                        flexFlow: "column nowrap",
+                        alignItems: "center",
+                        overflowY: "auto",
                     },
                     content: {
                         // remove defaults
-                        position: undefined,
+                        position: "relative",
                         top: undefined,
                         left: undefined,
                         right: undefined,
                         bottom: undefined,
                         border: null,
                         padding: null,
+                        margin: "10% 0",
                         borderRadius: 0,
                         boxShadow: "0px 0px 1.1em 2px rgba(0, 0, 0, 0.2)",
                         maxWidth: "100%",
-                        maxHeight: "95%",
                         minWidth: "60%",
-                        display: "flex",
-                        flexFlow: "column nowrap",
-                        justifyContent: "center",
-                        alignItems: "center",
+                        overflow: undefined,
                     },
                 }}
             >
