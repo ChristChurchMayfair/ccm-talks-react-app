@@ -7,9 +7,10 @@ import { type Series } from "../../types";
 import SeriesThumbnail from "../SeriesThumbnail";
 import OpacityButton from "../OpacityButton";
 
-const Thumbnail = styled.div`
+const Button = styled(OpacityButton)`
     font-size: 1rem;
     line-height: normal;
+    width: 100%;
 `;
 
 type Props = {|
@@ -21,15 +22,13 @@ export default class SeriesListItem extends PureComponent<Props> {
     render() {
         const { series, onClick } = this.props;
         return (
-            <OpacityButton
+            <Button
                 onClick={() => {
                     onClick(series.id);
                 }}
             >
-                <Thumbnail>
-                    <SeriesThumbnail series={series} />
-                </Thumbnail>
-            </OpacityButton>
+                <SeriesThumbnail series={series} />
+            </Button>
         );
     }
 }

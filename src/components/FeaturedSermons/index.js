@@ -26,6 +26,7 @@ const Link = styled.a`
     text-decoration: none !important;
     display: block;
     transition: opacity 0.2s ease-out;
+    width: 100%;
 
     @media ${MEDIA_QUERIES.canHover} {
         &:hover {
