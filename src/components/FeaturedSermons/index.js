@@ -4,7 +4,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import FeaturedSermon from "../FeaturedSermon";
-import Shadow from "../Shadow";
 import { type Sermon, type Series } from "../../types";
 import Grid from "../Grid";
 import { MEDIA_QUERIES } from "../../constants/styles";
@@ -28,6 +27,7 @@ const Link = styled.a`
     display: block;
     transition: opacity 0.2s ease-out;
     width: 100%;
+    box-shadow: 0px 0px 0.2em 2px rgba(0, 0, 0, 0.2);
 
     @media ${MEDIA_QUERIES.canHover} {
         &:hover {
@@ -56,9 +56,7 @@ class SermonList extends Component<Props> {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <Shadow>
-                            <FeaturedSermon sermon={sermon} series={series} />
-                        </Shadow>
+                        <FeaturedSermon sermon={sermon} series={series} />
                     </Link>
                 )}
             />
