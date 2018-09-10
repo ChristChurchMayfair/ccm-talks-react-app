@@ -1,6 +1,8 @@
 // @flow
 
 import React, { Component } from "react";
+import styled from "styled-components";
+import Spinner from "react-spinkit";
 
 import FeaturedSermons from "../FeaturedSermons";
 import SeriesList from "../SeriesList";
@@ -13,6 +15,13 @@ type Props = {||};
 type State = {|
     selectedSeriesId: ?string,
 |};
+
+const SpinnerContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+`;
 
 class App extends Component<Props, State> {
     state = {
@@ -31,7 +40,11 @@ class App extends Component<Props, State> {
             <WithSerieses>
                 {({ loading, error, serieses }) => {
                     if (loading === true || error != null) {
-                        return null;
+                        return (
+                            <SpinnerContainer>
+                                <Spinner name="folding-cube" />
+                            </SpinnerContainer>
+                        );
                     }
                     const selectedSeries = serieses.find(
                         s => s.id === selectedSeriesId,
