@@ -5,7 +5,7 @@ import ReactModal from "react-modal";
 import styled from "styled-components";
 
 import CloseSvg from "../../images/close";
-import Button from "../Button";
+import FillButton from "../FillButton";
 
 const Main = styled.div`
     flex-grow: 1;
@@ -38,11 +38,6 @@ const Children = styled.div`
     flex-grow: 1;
     flex-shrink: 1;
     overflow-y: auto;
-`;
-
-const CloseImage = styled.img`
-    width: 100%;
-    height: 100%;
 `;
 
 type Props = {|
@@ -101,13 +96,13 @@ class Modal extends Component<Props> {
             >
                 <Main>
                     <Header>
-                        <Button onClick={this.close}>
+                        <FillButton onClick={this.close}>
                             <ClosePadding>
                                 <Close>
                                     <CloseSvg />
                                 </Close>
                             </ClosePadding>
-                        </Button>
+                        </FillButton>
                     </Header>
                     <Children>{children}</Children>
                 </Main>

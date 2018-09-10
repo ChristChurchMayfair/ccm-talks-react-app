@@ -4,12 +4,11 @@ import React, { PureComponent } from "react";
 import styled from "styled-components";
 
 import { type Series } from "../../types";
-import Button from "../Button";
 import SeriesThumbnail from "../SeriesThumbnail";
+import OpacityButton from "../OpacityButton";
 
 const Thumbnail = styled.div`
     font-size: 1rem;
-    padding: 0.8em;
     line-height: normal;
 `;
 
@@ -22,8 +21,7 @@ export default class SeriesListItem extends PureComponent<Props> {
     render() {
         const { series, onClick } = this.props;
         return (
-            <Button
-                style={{ width: "100%" }}
+            <OpacityButton
                 onClick={() => {
                     onClick(series.id);
                 }}
@@ -31,7 +29,7 @@ export default class SeriesListItem extends PureComponent<Props> {
                 <Thumbnail>
                     <SeriesThumbnail series={series} />
                 </Thumbnail>
-            </Button>
+            </OpacityButton>
         );
     }
 }

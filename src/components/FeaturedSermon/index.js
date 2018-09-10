@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PureComponent } from "react";
+import React, { Fragment, PureComponent } from "react";
 import styled from "styled-components";
 import parse from "date-fns/parse";
 import format from "date-fns/format";
@@ -8,14 +8,7 @@ import format from "date-fns/format";
 import { type Sermon, type Series } from "../../types";
 import { formatOsis } from "../../passageformatter";
 import placeholderImage from "../../images/placeholderImage";
-
-const Image = styled.img`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`;
-
-const Main = styled.div``;
+import Card from "../Card";
 
 const Text = styled.div`
     margin: 0.2em 0;
@@ -52,12 +45,16 @@ class FeaturedSermon extends PureComponent<Props> {
         const date = parse(sermon.preachedAt);
         const passage = formatPassage(sermon.passage);
         return (
-            <Main>
-                <Image src={series.image3x2Url || placeholderImage} />
-                <SermonName>{sermon.name}</SermonName>
-                {passage != null && <Secondary>{passage}</Secondary>}
-                <Secondary>{format(date, "dddd D MMM YYYY")}</Secondary>
-            </Main>
+            <Card
+                imageUrl={series.image3x2Url || placeholderImage}
+                renderDetails={() => (
+                    <Fragment>
+                        <SermonName>{sermon.name}</SermonName>
+                        {passage != null && <Secondary>{passage}</Secondary>}
+                        <Secondary>{format(date, "dddd D MMM YYYY")}</Secondary>
+                    </Fragment>
+                )}
+            />
         );
     }
 }
