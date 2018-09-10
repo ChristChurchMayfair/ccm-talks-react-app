@@ -84,7 +84,7 @@ class Modal extends Component<Props> {
                         bottom: undefined,
                         border: null,
                         padding: null,
-                        margin: "3% 0",
+                        margin: "3em 0",
                         borderRadius: 0,
                         boxShadow: "0px 0px 1.1em 2px rgba(0, 0, 0, 0.2)",
                         maxWidth: "100%",
