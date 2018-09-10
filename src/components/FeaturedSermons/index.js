@@ -27,12 +27,11 @@ const Link = styled.a`
     display: block;
     width: 100%;
 
-    transition: opacity 0.2s ease-out;
-    transition: box-shadow 0.2s ease-out;
+    transition: all 0.2s ease-out;
 
     @media ${MEDIA_QUERIES.canHover} {
         &:hover {
-            opacity: 90%;
+            opacity: 0.9;
             box-shadow: ${SHADOW};
         }
     }
