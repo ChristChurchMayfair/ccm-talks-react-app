@@ -10,7 +10,7 @@ import Modal from "react-modal";
 
 import TalksApp from "./components/App";
 
-var serviceID = "cjhoh936q44gz0181840a6nlj";
+var serviceID = "cjkqvvoxy2pyy0175cdmdy1mz";
 var graphCoolURL = `https://api.graph.cool/simple/v1/${serviceID}`;
 
 const httpLink = createHttpLink({
