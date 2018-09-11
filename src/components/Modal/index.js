@@ -2,10 +2,42 @@
 
 import React, { Component, type Node } from "react";
 import ReactModal from "react-modal";
-import styled from "styled-components";
+import styled, { injectGlobal } from "styled-components";
 
 import CloseSvg from "../../images/close";
 import FillButton from "../FillButton";
+
+const MODAL_MAX_WIDTH = "550px";
+const BREAKPOINT = "600px";
+injectGlobal`
+    .TALKS__overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow-y: auto;
+        background-color: rgba(230, 230, 230, 0.75);
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+    }
+
+    .TALKS__content {
+        position: absolute;
+        background-color: white;
+        box-shadow: 0px 0px 1.1em 2px rgba(0, 0, 0, 0.2);
+        outline: none;
+        width: 100%;
+        min-height: 100%;
+        @media (min-width: ${BREAKPOINT}) {
+            width: ${MODAL_MAX_WIDTH};
+            min-height: auto;
+            margin-bottom: 10vh;
+            margin-top: 10vh;
+        }
+    }
+`;
 
 const Main = styled.div`
     flex-grow: 1;
@@ -66,32 +98,8 @@ class Modal extends Component<Props> {
                     // $FlowFixMe
                     document.body.style.overflow = "hidden";
                 }}
-                style={{
-                    overlay: {
-                        backgroundColor: "rgba(230, 230, 230, 0.75)",
-                        padding: "0",
-                        display: "flex",
-                        flexFlow: "column nowrap",
-                        alignItems: "center",
-                        overflowY: "auto",
-                    },
-                    content: {
-                        // remove defaults
-                        position: "relative",
-                        top: undefined,
-                        left: undefined,
-                        right: undefined,
-                        bottom: undefined,
-                        border: null,
-                        padding: null,
-                        margin: "3em 0",
-                        borderRadius: 0,
-                        boxShadow: "0px 0px 1.1em 2px rgba(0, 0, 0, 0.2)",
-                        maxWidth: "100%",
-                        minWidth: "50%",
-                        overflow: undefined,
-                    },
-                }}
+                overlayClassName="TALKS__overlay"
+                className="TALKS__content"
             >
                 <Main>
                     <Header>

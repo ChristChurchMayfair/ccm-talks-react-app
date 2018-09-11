@@ -19,7 +19,6 @@ const Main = styled.div`
 const SeriesImage = styled.img`
     width: 100%;
     height: auto;
-    max-width: 30em;
     align-self: center;
 `;
 
