@@ -9,6 +9,26 @@ import { type Series } from "../../types";
 
 const SERIES_QUERY = gql`
     {
+        allSermons(first: 3, orderBy: preachedAt_DESC) {
+            id
+            name
+            preachedAt
+            url
+            passage
+            duration
+            series {
+              image3x2Url
+              name
+            }
+            event {
+                id
+                name
+            }
+            speakers {
+                id
+                name
+            }
+        }
         allSeries {
             id
             name
@@ -52,6 +72,7 @@ const sortSerieses = (serieses: Array<Series>): Array<Series> => {
 type Props = {|
     children: ({
         serieses: Array<Series>,
+        recentSermons: Array<Sermon>,
         loading: boolean,
         error: ?string,
     }) => Node,
@@ -65,8 +86,11 @@ class WithSerieses extends Component<Props> {
                 {({ loading, error, data }) => {
                     const serieses: Array<Series> =
                         data.allSeries != null ? data.allSeries : [];
+                    const recentSermons: Array<Sermon> =
+                        data.allSermons != null ? data.allSermons : [];
                     return children({
                         serieses: sortSerieses(serieses),
+                        recentSermons: recentSermons,
                         loading,
                         error: error != null ? error.message : null,
                     });
