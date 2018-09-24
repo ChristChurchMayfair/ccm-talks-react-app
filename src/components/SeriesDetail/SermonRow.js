@@ -6,7 +6,6 @@ import parse from "date-fns/parse";
 import format from "date-fns/format";
 
 import { type Sermon } from "../../types";
-import { formatOsis } from "../../passageformatter";
 
 const Main = styled.div`
     width: 100%;
@@ -20,17 +19,6 @@ const DetailRow = styled.div`
     font-size: 0.7em;
 `;
 
-const formatPassage = (passage: ?string): ?string => {
-    if (passage == null) {
-        return null;
-    }
-    try {
-        return formatOsis(passage);
-    } catch (err) {
-        return null;
-    }
-};
-
 type Props = {|
     sermon: Sermon,
 |};
@@ -38,7 +26,7 @@ type Props = {|
 export default class SermonRow extends PureComponent<Props> {
     render() {
         const { sermon } = this.props;
-        const passage = formatPassage(sermon.passage);
+        const passage = sermon.passage;
         return (
             <Main>
                 <div>{sermon.name}</div>

@@ -6,7 +6,6 @@ import parse from "date-fns/parse";
 import format from "date-fns/format";
 
 import { type Sermon, type Series } from "../../types";
-import { formatOsis } from "../../passageformatter";
 import placeholderImage from "../../images/placeholderImage";
 import Card from "../Card";
 
@@ -23,17 +22,6 @@ const Secondary = styled(Text)`
     opacity: 0.8;
 `;
 
-const formatPassage = (passage: ?string): ?string => {
-    if (passage == null) {
-        return null;
-    }
-    try {
-        return formatOsis(passage);
-    } catch (err) {
-        return null;
-    }
-};
-
 type Props = {|
     sermon: Sermon,
     series: Series,
@@ -43,7 +31,7 @@ class FeaturedSermon extends PureComponent<Props> {
     render() {
         const { sermon, series } = this.props;
         const date = parse(sermon.preachedAt);
-        const passage = formatPassage(sermon.passage);
+        const passage = sermon.passage;
         return (
             <Card
                 imageUrl={series.image3x2Url || placeholderImage}
