@@ -8,6 +8,8 @@ import SeriesList from "../SeriesList";
 import WithSerieses from "../WithSerieses";
 import Modal from "../Modal";
 import SeriesDetail from "../SeriesDetail";
+import Filters from "../Filters";
+import type { Series, Sermon, TalksFilter } from "../../types";
 
 type Props = {||};
 
@@ -30,12 +32,53 @@ const Unrotate = styled.div`
 class App extends Component<Props, State> {
     state = {
         selectedSeriesId: null,
+        talksFilter: {
+            seriesName: null,
+            sermonTitle: null,
+        },
     };
 
     selectSeries = (seriesId: string) => {
         this.setState({
             selectedSeriesId: seriesId,
         });
+    };
+
+    modifyFilter = (newFilter: TalksFilter) => {
+        const { talksFilter } = this.state;
+        this.setState({
+            talksFilter: {
+                ...talksFilter,
+                ...newFilter,
+            },
+        });
+    };
+
+    filterSermonsInSeries = (series: Series): Series => {
+        const { talksFilter } = this.state;
+        const { sermonTitle } = talksFilter;
+        const { sermons } = series;
+        const filteredSermons: Array<Sermon> = sermons.filter(
+            sermon =>
+                !sermonTitle ||
+                sermon.name.toLowerCase().includes(sermonTitle.toLowerCase()),
+        );
+        return { ...series, sermons: filteredSermons };
+    };
+
+    filterSerieses = (serieses: Array<Series>): SeriesList => {
+        const { talksFilter } = this.state;
+        const { seriesName } = talksFilter;
+        return serieses
+            .filter(
+                series =>
+                    !seriesName ||
+                    series.name
+                        .toLowerCase()
+                        .includes(seriesName.toLowerCase()),
+            )
+            .map(this.filterSermonsInSeries)
+            .filter(({ sermons }) => sermons.length > 0);
     };
 
     render() {
@@ -58,8 +101,9 @@ class App extends Component<Props, State> {
                     return (
                         <div>
                             <h1>Latest Talks</h1>
+                            <Filters modifyFilter={this.modifyFilter} />
                             <SeriesList
-                                serieses={serieses}
+                                serieses={this.filterSerieses(serieses)}
                                 onSelectSeries={this.selectSeries}
                             />
                             {
@@ -74,7 +118,9 @@ class App extends Component<Props, State> {
                                     {selectedSeries != null && (
                                         <div>
                                             <SeriesDetail
-                                                series={selectedSeries}
+                                                series={this.filterSermonsInSeries(
+                                                    selectedSeries,
+                                                )}
                                             />
                                         </div>
                                     )}
