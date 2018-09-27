@@ -15,6 +15,7 @@ type Props = {||};
 
 type State = {|
     selectedSeriesId: ?string,
+    talksFilter: TalksFilter,
 |};
 
 const SpinnerContainer = styled.div`
@@ -35,6 +36,8 @@ class App extends Component<Props, State> {
         talksFilter: {
             seriesName: null,
             sermonTitle: null,
+            passage: null,
+            speakerName: null,
         },
     };
 
@@ -56,13 +59,32 @@ class App extends Component<Props, State> {
 
     filterSermonsInSeries = (series: Series): Series => {
         const { talksFilter } = this.state;
-        const { sermonTitle } = talksFilter;
+        const { sermonTitle, passage, speakerName } = talksFilter;
         const { sermons } = series;
-        const filteredSermons: Array<Sermon> = sermons.filter(
-            sermon =>
-                !sermonTitle ||
-                sermon.name.toLowerCase().includes(sermonTitle.toLowerCase()),
-        );
+        const filteredSermons: Array<Sermon> = sermons
+            .filter(
+                sermon =>
+                    !sermonTitle ||
+                    sermon.name
+                        .toLowerCase()
+                        .includes(sermonTitle.toLowerCase()),
+            )
+            .filter(
+                sermon =>
+                    !passage ||
+                    sermon.passage
+                        .toLowerCase()
+                        .includes(passage.toLowerCase()),
+            )
+            .filter(
+                sermon =>
+                    !speakerName ||
+                    sermon.speakers
+                        .map(({ name }) => name)
+                        .join("|")
+                        .toLowerCase()
+                        .includes(speakerName.toLowerCase()),
+            );
         return { ...series, sermons: filteredSermons };
     };
 

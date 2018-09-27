@@ -32,4 +32,6 @@ export type Series = {
 export type TalksFilter = {
     seriesName: ?string,
     sermonTitle: ?string,
+    passage: ?string,
+    speakerName: ?string,
 };

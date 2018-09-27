@@ -2,6 +2,7 @@
 
 export const COLOURS = {
     lightGrey: "#f0f0f0",
+    darkGrey: "#d0d0d0",
 };
 
 export const MEDIA_QUERIES = {
