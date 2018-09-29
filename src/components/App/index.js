@@ -8,11 +8,14 @@ import SeriesList from "../SeriesList";
 import WithSerieses from "../WithSerieses";
 import Modal from "../Modal";
 import SeriesDetail from "../SeriesDetail";
+import Filters from "../Filters";
+import { type Series, type Sermon } from "../../types";
 
 type Props = {||};
 
 type State = {|
     selectedSeriesId: ?string,
+    talksFilter: string,
 |};
 
 const SpinnerContainer = styled.div`
@@ -27,9 +30,49 @@ const Unrotate = styled.div`
     transform: rotateZ(-45deg);
 `;
 
+const stringsMatch = (s1: ?string, s2: string): boolean => {
+    if (s1 == null) {
+        return false;
+    }
+    return s1.toLowerCase().includes(s2.toLowerCase());
+};
+
+export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
+    const trimmedFilter = filterText.trim();
+    const words = trimmedFilter.split(" ").filter(w => w.length > 0);
+
+    return words.some(word => {
+        const nameMatches = stringsMatch(sermon.name, word);
+        const speakerNameMatches = sermon.speakers.some(speaker =>
+            stringsMatch(speaker.name, word),
+        );
+        const passageMatches = stringsMatch(sermon.passage, word);
+        return nameMatches || speakerNameMatches || passageMatches;
+    });
+};
+
+export const filterSeries = (series: Series, filterText: string): boolean => {
+    if (filterText === "") {
+        return true;
+    }
+
+    const trimmedFilter = filterText.trim();
+    const words = trimmedFilter.split(" ").filter(w => w.length > 0);
+
+    return words.every(word => {
+        const seriesNameMatches = stringsMatch(series.name, word);
+        const seriesSubtitleMatches = stringsMatch(series.subtitle, word);
+        const hasASermonMatch = series.sermons.some(sermon =>
+            filterSermon(sermon, word),
+        );
+        return seriesNameMatches || seriesSubtitleMatches || hasASermonMatch;
+    });
+};
+
 class App extends Component<Props, State> {
     state = {
         selectedSeriesId: null,
+        talksFilter: "",
     };
 
     selectSeries = (seriesId: string) => {
@@ -38,8 +81,14 @@ class App extends Component<Props, State> {
         });
     };
 
+    modifyFilter = (newFilter: string) => {
+        this.setState({
+            talksFilter: newFilter,
+        });
+    };
+
     render() {
-        const { selectedSeriesId } = this.state;
+        const { selectedSeriesId, talksFilter } = this.state;
         return (
             <WithSerieses>
                 {({ loading, error, serieses }) => {
@@ -58,8 +107,14 @@ class App extends Component<Props, State> {
                     return (
                         <div>
                             <h1>Latest Talks</h1>
+                            <Filters
+                                filterText={talksFilter}
+                                modifyFilter={this.modifyFilter}
+                            />
                             <SeriesList
-                                serieses={serieses}
+                                serieses={serieses.filter(series =>
+                                    filterSeries(series, talksFilter),
+                                )}
                                 onSelectSeries={this.selectSeries}
                             />
                             {
@@ -75,6 +130,12 @@ class App extends Component<Props, State> {
                                         <div>
                                             <SeriesDetail
                                                 series={selectedSeries}
+                                                shouldHighlightSermon={sermon => {
+                                                    return filterSermon(
+                                                        sermon,
+                                                        talksFilter,
+                                                    );
+                                                }}
                                             />
                                         </div>
                                     )}

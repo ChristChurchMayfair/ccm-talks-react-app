@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import parse from "date-fns/parse";
 
-import { type Series } from "../../types";
+import { type Series, type Sermon } from "../../types";
 import SermonRow from "./SermonRow";
 import { MEDIA_QUERIES, COLOURS } from "../../constants/styles";
 import placeholderImage from "../../images/placeholderImage";
@@ -30,7 +30,9 @@ const List = styled.ul`
 
 const ListItem = styled.li`
     border-bottom: 1px solid ${COLOURS.lightGrey};
-
+    background-color: ${props => {
+        return props.shouldHighlight ? COLOURS.sermonHighlight : null;
+    }};
     &:last-child {
         border-bottom: none;
     }
@@ -79,9 +81,10 @@ const Link = styled.a.attrs({
 
 type Props = {|
     series: Series,
+    shouldHighlightSermon: (sermon: Sermon) => boolean,
 |};
 
-const SeriesDetail = ({ series }: Props) => {
+const SeriesDetail = ({ series, shouldHighlightSermon }: Props) => {
     const sortedSermons = [...series.sermons];
     sortedSermons.sort((a, b) => {
         return parse(b.preachedAt).getTime() - parse(a.preachedAt).getTime();
@@ -101,7 +104,10 @@ const SeriesDetail = ({ series }: Props) => {
             </HPadding>
             <List>
                 {sortedSermons.map(sermon => (
-                    <ListItem key={sermon.id}>
+                    <ListItem
+                        key={sermon.id}
+                        shouldHighlight={shouldHighlightSermon(sermon)}
+                    >
                         <Link
                             href={sermon.url}
                             target="_blank"
