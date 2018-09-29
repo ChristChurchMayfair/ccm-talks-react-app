@@ -82,3 +82,10 @@ test("Empty string should match everything", () => {
 test("Every word must match", () => {
     expect(filterSeries(series, "Sermon thisdoesntexistanywhere")).toBe(false);
 });
+
+test("Filter series with multiple words across multiple fields", () => {
+    expect(filterSeries(series, "Series subtitle")).toBe(true);
+    expect(filterSeries(series, "Series Sermon")).toBe(true);
+    expect(filterSeries(series, "Series Surname")).toBe(true);
+    expect(filterSeries(series, "Series Galatians")).toBe(true);
+});
