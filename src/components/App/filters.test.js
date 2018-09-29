@@ -10,7 +10,7 @@ const sermon: Sermon = {
     duration: 90,
     passage: "Galatians 3:1-3",
     url: "a url",
-    preachedAt: "asdfasdf",
+    preachedAt: "2018-08-12T10:15:58.000Z",
     speakers: [{ id: "id1", name: "Firstname Surname" }],
 };
 
@@ -53,6 +53,32 @@ test("Filter series with sermon name", () => {
 
 test("Filter series with junky sermon name", () => {
     expect(filterSeries(series, "pq3984kjsdfgkjfg")).toBe(false);
+});
+
+test("Filter sermons by service event", () => {
+    expect(filterSeries(series, "Event")).toBe(true);
+});
+
+test("Filter sermons by partial service event", () => {
+    expect(filterSeries(series, "vent")).toBe(true);
+});
+
+test("Filter sermons with missing service event", () => {
+    const sermonNoEvent = { ...sermon, event: null };
+    const seriesWithSermonWithNoEvent = { ...series, sermons: [sermonNoEvent] };
+    expect(filterSeries(seriesWithSermonWithNoEvent, "vent")).toBe(false);
+});
+
+test("Filter sermons by year", () => {
+    expect(filterSeries(series, "2018")).toBe(true);
+});
+
+test("Filter sermons by month", () => {
+    expect(filterSeries(series, "aug")).toBe(true);
+});
+
+test("Filter sermons by month and year", () => {
+    expect(filterSeries(series, "2018 aug")).toBe(true);
 });
 
 test("Filter series with speaker name", () => {

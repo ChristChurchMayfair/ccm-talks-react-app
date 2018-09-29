@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Spinner from "react-spinkit";
+import parse from "date-fns/parse";
+import format from "date-fns/format";
 
 import SeriesList from "../SeriesList";
 import WithSerieses from "../WithSerieses";
@@ -47,7 +49,19 @@ export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
             stringsMatch(speaker.name, word),
         );
         const passageMatches = stringsMatch(sermon.passage, word);
-        return nameMatches || speakerNameMatches || passageMatches;
+        const eventMatches =
+            sermon.event != null
+                ? stringsMatch(sermon.event.name, word)
+                : false;
+        const dateString = format(parse(sermon.preachedAt), "Do MMM YYYY");
+        const dateMatches = stringsMatch(dateString, word);
+        return (
+            nameMatches ||
+            speakerNameMatches ||
+            passageMatches ||
+            eventMatches ||
+            dateMatches
+        );
     });
 };
 
