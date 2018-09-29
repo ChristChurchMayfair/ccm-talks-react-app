@@ -30,10 +30,14 @@ const Unrotate = styled.div`
     transform: rotateZ(-45deg);
 `;
 
+export const filterSeries = (series: Series, filterText: string): boolean => {
+    return series.name.toLowerCase().includes(filterText.toLowerCase());
+};
+
 class App extends Component<Props, State> {
     state = {
         selectedSeriesId: null,
-        talksFilter: ""
+        talksFilter: "",
     };
 
     selectSeries = (seriesId: string) => {
@@ -44,12 +48,8 @@ class App extends Component<Props, State> {
 
     modifyFilter = (newFilter: string) => {
         this.setState({
-            talksFilter: newFilter
+            talksFilter: newFilter,
         });
-    };
-
-    filterSeries = (series: Series, filterText: string): boolean => {
-      return series.name.toLowerCase().includes(filterText.toLowerCase())
     };
 
     render() {
@@ -72,9 +72,14 @@ class App extends Component<Props, State> {
                     return (
                         <div>
                             <h1>Latest Talks</h1>
-                            <Filters filterText={talksFilter} modifyFilter={this.modifyFilter} />
+                            <Filters
+                                filterText={talksFilter}
+                                modifyFilter={this.modifyFilter}
+                            />
                             <SeriesList
-                                serieses={serieses.filter(series => this.filterSeries(series, talksFilter))}
+                                serieses={serieses.filter(series =>
+                                    filterSeries(series, talksFilter),
+                                )}
                                 onSelectSeries={this.selectSeries}
                             />
                             {
