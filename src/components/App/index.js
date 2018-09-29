@@ -31,10 +31,15 @@ const Unrotate = styled.div`
 `;
 
 const stringsMatch = (s1: ?string, s2: string): boolean => {
-    if (s1 == null) {
-        return false;
-    }
-    return s1.toLowerCase().includes(s2.trim().toLowerCase());
+    const trimmedFilter = s2.trim();
+    const words = trimmedFilter.split(" ").filter(w => w.length > 0);
+
+    return words.every(word => {
+        if (s1 == null) {
+            return false;
+        }
+        return s1.toLowerCase().includes(word.toLowerCase());
+    });
 };
 
 export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
@@ -47,6 +52,9 @@ export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
 };
 
 export const filterSeries = (series: Series, filterText: string): boolean => {
+    if (filterText === "") {
+        return true;
+    }
     const seriesNameMatches = stringsMatch(series.name, filterText);
     const seriesSubtitleMatches = stringsMatch(series.subtitle, filterText);
     const hasASermonMatch = series.sermons.some(sermon =>

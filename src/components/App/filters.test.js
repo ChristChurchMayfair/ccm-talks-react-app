@@ -66,3 +66,19 @@ test("Filter series with speaker name with trailing space", () => {
 test("Filter series with passage", () => {
     expect(filterSeries(series, "Galatians")).toBe(true);
 });
+
+test("Filter series with subset of words", () => {
+    expect(filterSeries(series, "Name series")).toBe(true);
+});
+
+test("Disregards multiple spaces", () => {
+    expect(filterSeries(series, "afsgasgas    dsgasgasg")).toBe(false);
+});
+
+test("Empty string should match everything", () => {
+    expect(filterSeries(series, "")).toBe(true);
+});
+
+test("Every word must match", () => {
+    expect(filterSeries(series, "Sermon thisdoesntexistanywhere")).toBe(false);
+});
