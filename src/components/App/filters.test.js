@@ -1,7 +1,7 @@
 //@flow
 import type { Sermon, Series } from "../../types";
 
-import { filterSeries, filterSermon } from "./index";
+import { filterSeries } from "./index";
 
 const sermon: Sermon = {
     name: "Sermon name",

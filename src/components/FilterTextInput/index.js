@@ -8,7 +8,7 @@ import FilterInputLabel from "../FilterInputLabel";
 type Props = {|
     onChange: (value: string) => void,
     placeholder: string,
-    value: string
+    value: string,
 |};
 
 type State = {|
@@ -18,9 +18,10 @@ type State = {|
 const Main = styled.div``;
 
 const TextInput = styled.input`
-    font-size: 1rem;
+    font-size: 1.3em;
+    font-family: inherit;
     width: 100%;
-    padding: 0.25rem;
+    padding: 1em;
     box-sizing: border-box;
     outline: none;
     border: 3px solid ${COLOURS.lightGrey};
@@ -42,12 +43,12 @@ class FilterTextInput extends Component<Props, State> {
                 <TextInput
                     value={value}
                     type="text"
-                    onChange={(event) => {
-                      //$FlowFixMe
-                      const newFilterValue: string = event.target.value
-                      onChange(newFilterValue)
+                    onChange={event => {
+                        //$FlowFixMe
+                        const newFilterValue: string = event.target.value;
+                        onChange(newFilterValue);
                     }}
-                    placeholder={!isFocused ? placeholder : undefined}
+                    placeholder={placeholder}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                     style={
@@ -56,13 +57,6 @@ class FilterTextInput extends Component<Props, State> {
                             : undefined
                     }
                 />
-                <FilterInputLabel
-                    style={{
-                        color: `${isFocused ? "inherit" : "transparent"}`,
-                    }}
-                >
-                    {placeholder}
-                </FilterInputLabel>
             </Main>
         );
     }

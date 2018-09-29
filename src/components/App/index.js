@@ -38,12 +38,17 @@ const stringsMatch = (s1: ?string, s2: string): boolean => {
 };
 
 export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
-    const nameMatches = stringsMatch(sermon.name, filterText);
-    const speakerNameMatches = sermon.speakers.some(speaker =>
-        stringsMatch(speaker.name, filterText),
-    );
-    const passageMatches = stringsMatch(sermon.passage, filterText);
-    return nameMatches || speakerNameMatches || passageMatches;
+    const trimmedFilter = filterText.trim();
+    const words = trimmedFilter.split(" ").filter(w => w.length > 0);
+
+    return words.some(word => {
+        const nameMatches = stringsMatch(sermon.name, word);
+        const speakerNameMatches = sermon.speakers.some(speaker =>
+            stringsMatch(speaker.name, word),
+        );
+        const passageMatches = stringsMatch(sermon.passage, word);
+        return nameMatches || speakerNameMatches || passageMatches;
+    });
 };
 
 export const filterSeries = (series: Series, filterText: string): boolean => {
@@ -125,6 +130,12 @@ class App extends Component<Props, State> {
                                         <div>
                                             <SeriesDetail
                                                 series={selectedSeries}
+                                                shouldHighlightSermon={sermon => {
+                                                    return filterSermon(
+                                                        sermon,
+                                                        talksFilter,
+                                                    );
+                                                }}
                                             />
                                         </div>
                                     )}

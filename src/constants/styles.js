@@ -3,6 +3,7 @@
 export const COLOURS = {
     lightGrey: "#f0f0f0",
     darkGrey: "#d0d0d0",
+    sermonHighlight: "hsla(409, 95%, 67%, 0.4)",
 };
 
 export const MEDIA_QUERIES = {
