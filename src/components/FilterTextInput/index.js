@@ -18,10 +18,10 @@ type State = {|
 const Main = styled.div``;
 
 const TextInput = styled.input`
-    font-size: 1.3em;
+    font-size: 0.8em;
     font-family: inherit;
     width: 100%;
-    padding: 1em;
+    padding: 0.5em;
     box-sizing: border-box;
     outline: none;
     border: 3px solid ${COLOURS.lightGrey};
