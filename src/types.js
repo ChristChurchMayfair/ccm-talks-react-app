@@ -28,10 +28,3 @@ export type Series = {
     image3x2Url: ?string,
     sermons: Array<Sermon>,
 };
-
-export type TalksFilter = {
-    seriesName: ?string,
-    sermonTitle: ?string,
-    passage: ?string,
-    speakerName: ?string,
-};

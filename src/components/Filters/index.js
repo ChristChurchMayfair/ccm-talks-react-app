@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-import type { TalksFilter } from "../../types";
 import { MEDIA_QUERIES } from "../../constants/styles";
 import FilterTextInput from "../FilterTextInput";
 
@@ -22,48 +21,19 @@ const Main = styled.div`
 const FilterComponent = styled.div``;
 
 type Props = {|
-    modifyFilter: TalksFilter => void,
+    filterText: string,
+    modifyFilter: string => void,
 |};
 
 class Filters extends Component<Props> {
-    onFilterChange = (attribute: string) => ({ target: { value } }) => {
-        const { modifyFilter } = this.props;
-        modifyFilter({ [attribute]: value });
-    };
-
     render() {
         return (
             <Main>
                 <FilterComponent>
                     <FilterTextInput
-                        type="text"
-                        name="seriesNameFilter"
-                        onChange={this.onFilterChange("seriesName")}
-                        placeholder="Search series name"
-                    />
-                </FilterComponent>
-                <FilterComponent>
-                    <FilterTextInput
-                        type="text"
-                        name="sermonTitleFilter"
-                        onChange={this.onFilterChange("sermonTitle")}
-                        placeholder="Search sermon title"
-                    />
-                </FilterComponent>
-                <FilterComponent>
-                    <FilterTextInput
-                        type="text"
-                        name="passageFilter"
-                        onChange={this.onFilterChange("passage")}
-                        placeholder="Search passage (e.g. Romans 8)"
-                    />
-                </FilterComponent>
-                <FilterComponent>
-                    <FilterTextInput
-                        type="text"
-                        name="speakerNameFilter"
-                        onChange={this.onFilterChange("speakerName")}
-                        placeholder="Search speaker (e.g. Matt Fuller)"
+                        value={this.props.filterText}
+                        onChange={this.props.modifyFilter}
+                        placeholder="Search"
                     />
                 </FilterComponent>
             </Main>

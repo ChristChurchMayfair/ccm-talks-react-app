@@ -6,9 +6,9 @@ import { COLOURS } from "../../constants/styles";
 import FilterInputLabel from "../FilterInputLabel";
 
 type Props = {|
-    name: string,
-    onChange: ({ event: { target: { value: string } } }) => void,
+    onChange: (value: string) => void,
     placeholder: string,
+    value: string
 |};
 
 type State = {|
@@ -35,14 +35,18 @@ class FilterTextInput extends Component<Props, State> {
     onBlur = () => this.setState({ isFocused: false });
 
     render() {
-        const { name, onChange, placeholder } = this.props;
+        const { onChange, placeholder, value } = this.props;
         const { isFocused } = this.state;
         return (
             <Main>
                 <TextInput
+                    value={value}
                     type="text"
-                    name={name}
-                    onChange={onChange}
+                    onChange={(event) => {
+                      //$FlowFixMe
+                      const newFilterValue: string = event.target.value
+                      onChange(newFilterValue)
+                    }}
                     placeholder={!isFocused ? placeholder : undefined}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
