@@ -9,7 +9,7 @@ import WithSerieses from "../WithSerieses";
 import Modal from "../Modal";
 import SeriesDetail from "../SeriesDetail";
 import Filters from "../Filters";
-import { type Series } from "../../types";
+import { type Series, type Sermon } from "../../types";
 
 type Props = {||};
 
@@ -30,8 +30,29 @@ const Unrotate = styled.div`
     transform: rotateZ(-45deg);
 `;
 
+const stringsMatch = (s1: ?string, s2: string): boolean => {
+    if (s1 == null) {
+        return false;
+    }
+    return s1.toLowerCase().includes(s2.trim().toLowerCase());
+};
+
+export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
+    const nameMatches = stringsMatch(sermon.name, filterText);
+    const speakerNameMatches = sermon.speakers.some(speaker =>
+        stringsMatch(speaker.name, filterText),
+    );
+    const passageMatches = stringsMatch(sermon.passage, filterText);
+    return nameMatches || speakerNameMatches || passageMatches;
+};
+
 export const filterSeries = (series: Series, filterText: string): boolean => {
-    return series.name.toLowerCase().includes(filterText.toLowerCase());
+    const seriesNameMatches = stringsMatch(series.name, filterText);
+    const seriesSubtitleMatches = stringsMatch(series.subtitle, filterText);
+    const hasASermonMatch = series.sermons.some(sermon =>
+        filterSermon(sermon, filterText),
+    );
+    return seriesNameMatches || seriesSubtitleMatches || hasASermonMatch;
 };
 
 class App extends Component<Props, State> {
