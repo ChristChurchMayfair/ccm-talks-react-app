@@ -54,7 +54,7 @@ export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
                 ? stringsMatch(sermon.event.name, word)
                 : false;
 
-        const monthString = format(parse(sermon.preachedAt), "MMM");
+        const monthString = format(parse(sermon.preachedAt), "MMMM");
         const monthMatches = stringsMatch(monthString, word);
 
         const yearString = format(parse(sermon.preachedAt), "YYYY");

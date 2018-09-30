@@ -81,6 +81,10 @@ test("Filter sermons by month", () => {
     expect(filterSeries(series, "aug")).toBe(true);
 });
 
+test("Filter sermons by full month", () => {
+    expect(filterSeries(series, "august")).toBe(true);
+});
+
 test("Filter sermons by month and year", () => {
     expect(filterSeries(series, "2018 aug")).toBe(true);
 });
