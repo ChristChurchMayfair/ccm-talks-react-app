@@ -53,14 +53,20 @@ export const filterSermon = (sermon: Sermon, filterText: string): boolean => {
             sermon.event != null
                 ? stringsMatch(sermon.event.name, word)
                 : false;
-        const dateString = format(parse(sermon.preachedAt), "Do MMM YYYY");
-        const dateMatches = stringsMatch(dateString, word);
+
+        const monthString = format(parse(sermon.preachedAt), "MMM");
+        const monthMatches = stringsMatch(monthString, word);
+
+        const yearString = format(parse(sermon.preachedAt), "YYYY");
+        const yearMatches = word === yearString;
+
         return (
             nameMatches ||
             speakerNameMatches ||
             passageMatches ||
             eventMatches ||
-            dateMatches
+            monthMatches ||
+            yearMatches
         );
     });
 };

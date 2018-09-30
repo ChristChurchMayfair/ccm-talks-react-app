@@ -73,6 +73,10 @@ test("Filter sermons by year", () => {
     expect(filterSeries(series, "2018")).toBe(true);
 });
 
+test("Filter sermons by year doesnt match partial", () => {
+    expect(filterSeries(series, "201")).toBe(false);
+});
+
 test("Filter sermons by month", () => {
     expect(filterSeries(series, "aug")).toBe(true);
 });
