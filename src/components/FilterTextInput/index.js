@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { COLOURS } from "../../constants/styles";
-import FilterInputLabel from "../FilterInputLabel";
 
 type Props = {|
     onChange: (value: string) => void,
@@ -15,17 +14,21 @@ type State = {|
     isFocused: boolean,
 |};
 
-const Main = styled.div``;
+const Main = styled.label`
+    padding: 0.5em;
+    border: 3px solid ${COLOURS.lightGrey};
+    transition: border-color 0.2s, width 0.2s;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-color: ${props => (props.isFocused ? COLOURS.darkGrey : null)};
+`;
 
 const TextInput = styled.input`
     font-size: 0.8em;
     font-family: inherit;
-    width: 100%;
-    padding: 0.5em;
-    box-sizing: border-box;
     outline: none;
-    border: 3px solid ${COLOURS.lightGrey};
-    transition: border-color 0.2s, width 0.2s;
+    border: none;
 `;
 
 class FilterTextInput extends Component<Props, State> {
@@ -39,7 +42,7 @@ class FilterTextInput extends Component<Props, State> {
         const { onChange, placeholder, value } = this.props;
         const { isFocused } = this.state;
         return (
-            <Main>
+            <Main isFocused={isFocused}>
                 <TextInput
                     value={value}
                     type="text"
@@ -51,11 +54,6 @@ class FilterTextInput extends Component<Props, State> {
                     placeholder={placeholder}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
-                    style={
-                        isFocused
-                            ? { borderColor: COLOURS.darkGrey }
-                            : undefined
-                    }
                 />
             </Main>
         );
