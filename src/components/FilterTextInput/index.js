@@ -15,7 +15,8 @@ type State = {|
 |};
 
 const Main = styled.label`
-    padding: 0.5em;
+    cursor: text;
+    padding: 0.3em 0.5em;
     border: 3px solid ${COLOURS.lightGrey};
     transition: border-color 0.2s, width 0.2s;
     display: block;
@@ -29,6 +30,7 @@ const TextInput = styled.input`
     font-family: inherit;
     outline: none;
     border: none;
+    width: 100%;
 `;
 
 class FilterTextInput extends Component<Props, State> {
