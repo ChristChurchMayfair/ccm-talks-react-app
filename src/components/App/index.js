@@ -7,6 +7,7 @@ import parse from "date-fns/parse";
 import format from "date-fns/format";
 
 import SeriesList from "../SeriesList";
+import SermonList from "../SermonList/index";
 import WithSerieses from "../WithSerieses";
 import Modal from "../Modal";
 import SeriesDetail from "../SeriesDetail";
@@ -124,6 +125,9 @@ class App extends Component<Props, State> {
                     const selectedSeries = serieses.find(
                         s => s.id === selectedSeriesId,
                     );
+
+                    const filterActive = !(talksFilter.trim() === "");
+
                     return (
                         <div>
                             <h1>Latest Talks</h1>
@@ -131,10 +135,18 @@ class App extends Component<Props, State> {
                                 filterText={talksFilter}
                                 modifyFilter={this.modifyFilter}
                             />
+                            <SermonList
+                                hidden={!filterActive}
+                                sermons={serieses
+                                    .map(series => series.sermons)
+                                    .reduce((acc, val) => acc.concat(val), [])
+                                    .filter(sermon =>
+                                        filterSermon(sermon, talksFilter),
+                                    )}
+                            />
                             <SeriesList
-                                serieses={serieses.filter(series =>
-                                    filterSeries(series, talksFilter),
-                                )}
+                                serieses={serieses}
+                                hidden={filterActive}
                                 onSelectSeries={this.selectSeries}
                             />
                             {
