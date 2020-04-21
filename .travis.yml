@@ -7,7 +7,6 @@ cache:
 env:
   - CI=false
 script:
-- npm test
 - npm run build
 - tar -z -c -v -f ccm-talks-reactjs.tar.gz -C ./build .
 deploy:
