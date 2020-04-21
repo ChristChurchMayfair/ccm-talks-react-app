@@ -7,7 +7,7 @@ import parse from "date-fns/parse";
 import format from "date-fns/format";
 
 import SeriesList from "../SeriesList";
-import WithSerieses from "../WithSerieses";
+import WithSerieses, {WithSeriesesFromSanity} from "../WithSerieses";
 import Modal from "../Modal";
 import SeriesDetail from "../SeriesDetail";
 import Filters from "../Filters";
@@ -110,9 +110,9 @@ class App extends Component<Props, State> {
     render() {
         const { selectedSeriesId, talksFilter } = this.state;
         return (
-            <WithSerieses>
+            <WithSeriesesFromSanity>
                 {({ loading, error, serieses }) => {
-                    if (loading === true || error != null) {
+                    if (loading || error) {
                         return (
                             <SpinnerContainer>
                                 <Unrotate>
@@ -164,7 +164,7 @@ class App extends Component<Props, State> {
                         </div>
                     );
                 }}
-            </WithSerieses>
+            </WithSeriesesFromSanity>
         );
     }
 }

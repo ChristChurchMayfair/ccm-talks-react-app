@@ -5,6 +5,8 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import parse from "date-fns/parse";
 
+import {SanityQuery} from "./sanityQuery";
+
 import { type Series } from "../../types";
 
 const SERIES_QUERY = gql`
@@ -53,7 +55,7 @@ type Props = {|
     children: ({
         serieses: Array<Series>,
         loading: boolean,
-        error: ?string,
+        error: ? string,
     }) => Node,
 |};
 
@@ -77,3 +79,46 @@ class WithSerieses extends Component<Props> {
 }
 
 export default WithSerieses;
+
+const SANITY_SERIES_QUERY = `*[_type == "sermonSeries"] | order(_createdAt asc) {
+    "id": _id, 
+    name, 
+    "image3x2Url": imageUrl, 
+    subtitle, 
+    "sermons": *[_type == "sermon" && references(^._id)] | order(preachedAt asc) {
+        "id": _id,
+        "name": title,
+        preachedAt,
+        url,
+        "passage": passages[0],
+        duration,
+        "event": event->{
+            "id": _id,
+            name
+        },
+        "speakers": speakers[]->{
+            "id": _id,
+            name
+        }
+    } 
+}`
+
+export class WithSeriesesFromSanity extends Component<Props> {
+    render() {
+        const { children } = this.props;
+        return (
+            <SanityQuery query={SANITY_SERIES_QUERY}>
+                {({ loading, error, data }) => {
+                    const serieses: Array<Series> =
+                        data != null ? data : [];
+                    console.log(serieses);
+                    return children({
+                        serieses: sortSerieses(serieses),
+                        loading,
+                        error: error != null ? error.message : null,
+                    });
+                }}
+            </SanityQuery>
+        );
+    }
+}
