@@ -7,7 +7,7 @@ const ccmSanityClient = sanityClient({
   useCdn: true
 });
 
-const useQuerySanity = (query = "") => {
+const useSanityQuery = (query = "") => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -42,6 +42,6 @@ const useQuerySanity = (query = "") => {
 
 export function SanityQuery(props) {
     const { children, query, ...options } = props;
-    const result = useQuerySanity(query);
+    const result = useSanityQuery(query);
     return children && result ? children(result) : null;
 }

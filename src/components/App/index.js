@@ -112,7 +112,7 @@ class App extends Component<Props, State> {
         return (
             <WithSeriesesFromSanity>
                 {({ loading, error, serieses }) => {
-                    if (loading === true || error != null) {
+                    if (loading || error) {
                         return (
                             <SpinnerContainer>
                                 <Unrotate>
